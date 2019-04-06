@@ -1,0 +1,37 @@
+# create git repo with for OPTEE-QEMU
+
+
+1. Follow build instruction in OPTEE site
+2. Once downloaded, remove internal .git files:
+
+( find . -type d -name ".git" \
+  && find . -name ".gitmodules" ) | xargs rm -rf
+  
+3. Remove the following directory:
+
+* arm-trusted-firmware
+* buildroot     
+* edk2
+* qemu
+
+4. Add this directory as submodules
+
+git submodule add https://github.com/ARM-software/arm-trusted-firmware.git            
+git submodule add https://github.com/buildroot/buildroot.git            
+git submodule add https://github.com/tianocore/edk2.git           
+git submodule add https://github.com/qemu/qemu.git
+
+5. For each of the directory in Step 5, checkout to specific branch as in qemu_v8_manifest.xml         
+
+For example,
+cd arm-trusted-firmware
+git checkout 34efb683e32254b8c325ac3071c5776d243a7b99
+
+cd buildroot
+git checkout  refs/tags/2018.08
+
+cd edk2
+git checkout dd4cae4d82c7477273f3da455084844db5cca0c0
+
+cd qemu
+git checkout refs/tags/v3.1.0-rc3
